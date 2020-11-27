@@ -24,7 +24,7 @@ const repository = (connection) => {
 
   const getCinemaById = (cinemaId) => {
     return new Promise((resolve, reject) => {
-      const query = {_id: new ObjectID(cinemaId)}
+      const query = {_id: cinemaId}
       const projection = {_id: 1, name: 1, cinemaPremieres: 1}
       const response = (err, cinema) => {
         if (err) {
@@ -38,6 +38,7 @@ const repository = (connection) => {
 
   const getCinemaScheduleByMovie = (options) => {
     return new Promise((resolve, reject) => {
+      console.log(options.cityId, options.movieId)
       const match = { $match: {
         'city_id': options.cityId,
         'cinemaRooms.schedules.movie_id': options.movieId
@@ -70,7 +71,7 @@ const repository = (connection) => {
         }
         resolve(result)
       }
-      db.collection('cinemas').aggregate([match, project, ...unwind, ...group], sendSchedules)
+      db.collection('cinemas').aggregate([match, project, ...unwind, ...group], { cursor:{} }, sendSchedules)
     })
   }
 

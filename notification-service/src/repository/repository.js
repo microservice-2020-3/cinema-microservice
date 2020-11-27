@@ -4,14 +4,14 @@ const repository = (container) => {
     return new Promise((resolve, reject) => {
       const {smtpSettings, smtpTransport, nodemailer} = container.cradle
 
-      const transporter = nodemailer.createTransport(
-        smtpTransport({
-          service: smtpSettings.service,
-          auth: {
-            user: smtpSettings.user,
-            pass: smtpSettings.pass
-          }
-        }))
+      // const transporter = nodemailer.createTransport(
+      //   smtpTransport({
+      //     service: smtpSettings.service,
+      //     auth: {
+      //       user: smtpSettings.user,
+      //       pass: smtpSettings.pass
+      //     }
+      //   }))
 
       const mailOptions = {
         from: '"Do Not Reply, Cinemas Company 👥" <no-replay@cinemas.com>',
@@ -33,13 +33,15 @@ const repository = (container) => {
           `
       }
 
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-          reject(new Error('An error occured sending an email, err:' + err))
-        }
-        transporter.close()
-        resolve(info)
-      })
+      // transporter.sendMail(mailOptions, (err, info) => {
+      //   if (err) {
+      //     reject(new Error('An error occured sending an email, err:' + err))
+      //   }
+      //   transporter.close()
+      //   resolve(info)
+      // })
+      
+      resolve({})
     })
   }
 
